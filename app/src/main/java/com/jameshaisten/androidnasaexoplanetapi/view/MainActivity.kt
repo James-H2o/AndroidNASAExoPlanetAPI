@@ -1,23 +1,17 @@
 package com.jameshaisten.androidnasaexoplanetapi.view
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.lifecycle.MutableLiveData
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.jameshaisten.androidnasaexoplanetapi.R
 import com.jameshaisten.androidnasaexoplanetapi.model.PlanetResponse
-import com.jameshaisten.androidnasaexoplanetapi.network.PlanetRetrofit
-import com.jameshaisten.androidnasaexoplanetapi.util.DebugLogger
 import com.jameshaisten.androidnasaexoplanetapi.view.adapter.PlanetAdapter
 import com.jameshaisten.androidnasaexoplanetapi.viewmodel.PlanetViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 
 //Homework Week 4 Day 2
@@ -42,10 +36,15 @@ class MainActivity : AppCompatActivity() {
 
         planetRecyclerView = findViewById(R.id.recyclerview_main)
         planetRecyclerView.adapter = planetAdapter
+        val helper: SnapHelper = LinearSnapHelper()
+        helper.attachToRecyclerView(planetRecyclerView)
+
 
         viewModel.planetLiveData.observe(this, Observer {
             planetAdapter.updatePlanetList(it as PlanetResponse)
         })
+
+
 
         Log.d("TAG_X", "Starting...")
         viewModel.getSearchResults("")
