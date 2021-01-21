@@ -3,13 +3,15 @@ package com.jameshaisten.androidnasaexoplanetapi.util
 import android.util.Log
 
 class DebugLogger {
-    companion object{
+
+    companion object {
         private const val LOG = "LOG_X"
 
-        fun log(message: String){
+        fun log(message: String) {
             Log.d(LOG, message)
         }
-        fun elog(errMessage: String){
+
+        fun elog(errMessage: String) {
             Log.d(LOG, errMessage)
         }
 
